@@ -17,12 +17,12 @@ public class RandomSpiller extends Spiller {
 		// liste med kort svarende til hand for spiller
 		ArrayList<Kort> h = getHand().toArrayList();
 		
-		// lister til å samle opp lovlige kort og åttere for spilleren
+		// lister til Ã¥ samle opp lovlige kort og Ã¥ttere for spilleren
 		
 		ArrayList<Kort> lovlige = new ArrayList<Kort>();
 		ArrayList<Kort> attere = new ArrayList<Kort>();
 
-		// itererer over handen h og legg til lovlige kort i åttere eller lovlige
+		// itererer over handen h og legg til lovlige kort i Ã¥ttere eller lovlige
 		for (Kort k : h) {
 			if (Regler.kanLeggeNed(k, topp)) {
 				if (Regler.atter(k)) {
@@ -33,7 +33,7 @@ public class RandomSpiller extends Spiller {
 			}
 		}
 
-		// finn om der skal spilles fra listen av åttere eller lovlige
+		// finn om der skal spilles fra listen av Ã¥ttere eller lovlige
 		Kort kort = null;
 		ArrayList<Kort> spillFra = null;
 
@@ -43,7 +43,7 @@ public class RandomSpiller extends Spiller {
 			spillFra = attere;
 		}
 
-		// finn ut hvilken handling spilleren skal gjøre og returner den
+		// finn ut hvilken handling spilleren skal gjÃ¸re og returner den
 		Handling handling = null;
 		
 		if (spillFra != null) {
@@ -57,13 +57,13 @@ public class RandomSpiller extends Spiller {
 			setAntallTrekk(0);
 		} else if (getAntallTrekk() < Regler.maksTrekk()) {
 			
-			// trekk fra bunken hvis vi ikker nådd grensen for å trekke
+			// trekk fra bunken hvis vi ikker nÃ¥dd grensen for Ã¥ trekke
 			
 			handling = new Handling(HandlingsType.TREKK, null);
 		} else {
 			
-			// ikke noe kort å spiller og kan ikke trekk mer
-			// da må vi se forbi og nullstille antall trekk.
+			// ikke noe kort spiller og kan ikke trekk mer
+			// da mÃ¥ vi si forbi og nullstille antall trekk.
 			
 			handling = new Handling(HandlingsType.FORBI, null);
 			setAntallTrekk(0);
