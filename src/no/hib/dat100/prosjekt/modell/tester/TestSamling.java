@@ -3,6 +3,7 @@ package no.hib.dat100.prosjekt.modell.tester;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 
@@ -23,9 +24,12 @@ public class TestSamling {
 	public void TestConstructor() {
 
 		TKortSamling samling = new TKortSamling();
-
-		assertTrue(samling.erTom());
+		
 		assertEquals(0, samling.getAntalKort());
+		
+		Kort[] samlingen = samling.getSamling();
+		assertNotNull(samlingen);
+		assertTrue(samling.erTom());
 	}
 
 	@Test
