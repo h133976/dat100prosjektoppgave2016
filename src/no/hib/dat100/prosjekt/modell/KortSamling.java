@@ -30,7 +30,7 @@ public abstract class KortSamling {
      */ 
     public KortSamling() { 
          
-        samling = new Kort[MAKS_KORTSTOKK]; 
+        samling = new Kort[MAKS_KORTSTOKK+1]; 
         forsteledig = 0; 
                             
         // TODO 
@@ -78,8 +78,7 @@ public abstract class KortSamling {
     public int getAntalKort() { 
          
         // TODO 
-        return forsteledig; 
-         
+        return forsteledig;
         //throw new RuntimeException("Metode getAntalKort ikke implementert"); 
     } 
  
@@ -89,9 +88,9 @@ public abstract class KortSamling {
      */ 
     public void leggTilAlle() { 
         // Hint: Kortfarge.values() gir en tabell med alle kortfarger     
-         
+        if (forsteledig < 1) return;
         // TODO 
-        int k = MAKS_KORTSTOKK - forsteledig; 
+        int k = 0; 
         for(int j = 0; j < MAKS_KORT_FARGE+1; j++){ 
             for(int i = 0; i < MAKS_KORT+1; i++){ 
                 Kortfarge f = Kortfarge.values()[j]; 
@@ -180,7 +179,8 @@ public abstract class KortSamling {
      */ 
     public boolean har(Kort kort) { 
          
-        if (forsteledig < 1) return false; 
+        if (forsteledig < 1) return false;
+        if (kort == null) return false;
         // TODO 
         for(int i = 0; i < forsteledig; i++){ 
             if (samling[i].compareTo(kort) == 0) return true; 
@@ -219,7 +219,7 @@ public abstract class KortSamling {
         ArrayList<Kort> list = toArrayList();	//Lag ny liste med elementer fra samling
         list.remove(index);	//Fjern element i rett index
         
-        fjernAlle(); //Fjern alt innhold i samling
+       // fjernAlle(); //Fjern alt innhold i samling
         forsteledig--;
         for(int i = 0; i < forsteledig; i++){  //Legg til nytt innhold i samling
         	samling[i] = list.get(i);
