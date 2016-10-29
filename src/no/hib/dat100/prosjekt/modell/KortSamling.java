@@ -59,12 +59,12 @@ public abstract class KortSamling {
      * @return tabell av kort. 
      */ 
     public Kort[] getSamling() { 
-        Kort[] kort = new Kort[forsteledig]; 
-        for(int i = 0; i < forsteledig; i++){ 
-            kort[i] = new Kort(samling[i].getFarge(), samling[i].getVerdi()); 
-        } 
+       // Kort[] kort = new Kort[forsteledig]; 
+       // for(int i = 0; i < forsteledig; i++){ 
+       //     kort[i] = samling[i];//new Kort(samling[i].getFarge(), samling[i].getVerdi()); 
+        //} 
          
-        return kort; 
+        return samling; 
          
         // TODO 
         //throw new RuntimeException("Metode getSamling ikke implementert"); 
@@ -138,8 +138,8 @@ public abstract class KortSamling {
     public Kort seSiste() { 
         if (forsteledig > 0){ 
             //Kort kort = new Kort(samling[forsteledig-1].getFarge(), samling[forsteledig-1].getVerdi()); 
-            Kort kort = samling[forsteledig-1]; 
-            return kort; 
+           // Kort kort = samling[forsteledig-1]; 
+            return samling[forsteledig-1]; 
  
         } 
         else return null; 
