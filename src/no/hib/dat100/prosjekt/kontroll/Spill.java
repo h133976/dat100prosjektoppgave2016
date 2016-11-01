@@ -337,13 +337,29 @@ public class Spill {
 	public Kort utforHandling(ISpiller spiller, Handling handling) {
 
 		Kort kort = null;
+		kort = handling.getKort();
 
 		// TODO
 		// Hint: del opp i de tre mulige handlinger og vurder 
 		// om noen andre private metoder i klassen kan brukes
 		// til å implementere denne metoden
 		
-		throw new RuntimeException("Metode utforHandling ikke implementert");
+		int type = handling.getType().ordinal();
+		
+		switch (type){
+			case 0:	//TREKK
+				trekkFraBunke(spiller);
+			break;
+			case 1:	//FORBI
+				forbiSpiller(spiller);
+			break;
+			case 2: //LEGGNED
+				leggnedKort(spiller, kort);
+			break;
+		}
+		
+		return kort;
+		//throw new RuntimeException("Metode utforHandling ikke implementert");
 	}
 
 	/**
@@ -357,8 +373,14 @@ public class Spill {
 	public boolean nedkortSyd(Kort kort) {
 		
 		// TODO
+		if (syd.getHand().har(kort) == false) return false;
 		
-		throw new RuntimeException("Metode nedkortSyd ikke implementert");
+		boolean success = Regler.kanLeggeNed(kort, seOverste());
+		
+		if (success) syd.fjernKort(kort);
+		
+		return success;
+		//throw new RuntimeException("Metode nedkortSyd ikke implementert");
 	}
 
 	/**
@@ -371,6 +393,10 @@ public class Spill {
 		// TODO
 		// Hint: bruk nesteHandling metoden for en spiller
 		
-		throw new RuntimeException("Metode foreslqqKortSyd ikke implementert");
+		Handling handling = syd.nesteHandling(seOverste());
+		
+		return handling.getKort();
+		
+		//throw new RuntimeException("Metode foreslqqKortSyd ikke implementert");
 	}
 }
