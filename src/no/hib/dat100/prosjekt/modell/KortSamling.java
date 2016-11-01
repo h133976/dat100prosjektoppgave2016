@@ -13,10 +13,10 @@ import java.util.Random;
  */ 
 public abstract class KortSamling { 
  
-    public static final int MAKS_KORT_FARGE = 3; 
-    private final int MAKS_KORT = 4 * MAKS_KORT_FARGE; 
+    public static final int MAKS_KORT_FARGE = 3; 	//Kort per farge (13 maks, 3 for test)
+    private final int MAKS_KORT = 4 * MAKS_KORT_FARGE; //(4 * 13 = 52)
      
-    private final int MAKS_KORTSTOKK = 51; 
+   // private final int MAKS_KORTSTOKK = 51; 
      
  
     // tabell for representasjon av samling av kort 
@@ -30,7 +30,7 @@ public abstract class KortSamling {
      */ 
     public KortSamling() { 
          
-        samling = new Kort[MAKS_KORTSTOKK+1]; 
+        samling = new Kort[MAKS_KORT]; 
         forsteledig = 0; 
                             
         // TODO 
@@ -88,11 +88,16 @@ public abstract class KortSamling {
      */ 
     public void leggTilAlle() { 
         // Hint: Kortfarge.values() gir en tabell med alle kortfarger     
-        if (forsteledig < 1) return;
+    	//Vil ha alle kort i sortert rekkefølge, tar derfor å fjerner evt. allerede eksisterende kort i kortsamling
+        if (forsteledig > 0) {	
+        	 for(int i = 0; i < forsteledig; i++){ 
+        		 samling[i] = null;
+        	 }
+        }
         // TODO 
-        int k = 0; 
-        for(int j = 0; j < MAKS_KORT_FARGE+1; j++){ 
-            for(int i = 0; i < MAKS_KORT+1; i++){ 
+        int k = 0;  
+        for(int j = 0; j < MAKS_KORT_FARGE; j++){ 
+            for(int i = 0; i < Kortfarge.values().length; i++){ 
                 Kortfarge f = Kortfarge.values()[j]; 
                 samling[k] = new Kort(f, i); 
                 //samling[k].setFarge(f); 
@@ -180,12 +185,14 @@ public abstract class KortSamling {
     public boolean har(Kort kort) { 
          
         if (forsteledig < 1) return false;
-        if (kort == null) return false;
-        // TODO 
-        for(int i = 0; i < forsteledig; i++){ 
-            if (samling[i].compareTo(kort) == 0) return true; 
-        } 
-        return false; 
+        else if (kort == null) return false;
+        else{
+	        // TODO 
+	        for(int i = 0; i < forsteledig; i++){ 
+	            if (samling[i].compareTo(kort) == 0) return true; 
+	        } 
+	        return false; 
+        }
         //throw new RuntimeException("Metode har ikke implementert"); 
     } 
     
@@ -238,17 +245,16 @@ public abstract class KortSamling {
         // Hint: en mulighet er bruk av klassen Random for � generere tilfeldige index 
          
     	// Fisher–Yates shuffle (http://stackoverflow.com/questions/1519736/random-shuffling-of-an-array)
-    	
-	   int index;
-	   Kort temp;
-	   Random random = new Random();
-	   for (int i = forsteledig; i > 0; i--)
-	   {
-	       index = random.nextInt(i + 1);
-	       temp = samling[index];
-	       samling[index] = samling[i];
-	       samling[i] = temp;
-	   }
+ 	   int index;
+ 	   Kort temp;
+ 	   Random random = new Random();
+ 	   for (int i = forsteledig-1; i > 0; i--)
+ 	   {
+ 	       index = random.nextInt(i + 1);
+ 	       temp = samling[index];
+ 	       samling[index] = samling[i];
+ 	       samling[i] = temp;
+ 	   }
 
         //throw new RuntimeException("Metode stokk ikke implementert"); 
     } 

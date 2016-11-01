@@ -135,6 +135,7 @@ public class TestSamling {
 		samling.leggTil(kort1);
 		samling.leggTil(kort2);
 		samling.leggTil(kort3);
+		samling.stokk();
 
 		assertEquals(3, samling.getAntalKort());
 		assertTrue(samling.har(kort1));
