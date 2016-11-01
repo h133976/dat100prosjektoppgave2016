@@ -39,7 +39,7 @@ public class FirstFitSpiller extends Spiller {
 
 		// kort som kan spilles
 		Kort kort = null;
-
+		
 		/* first-fit strategi */
 		
 		// finn det forste kort p� handen som kan spilles (legges ned)
@@ -54,5 +54,6 @@ public class FirstFitSpiller extends Spiller {
 		
 		// TODO
 		throw new RuntimeException("Metode nesteHandling ikke implementert");
+		//return handling;
 	}
 }

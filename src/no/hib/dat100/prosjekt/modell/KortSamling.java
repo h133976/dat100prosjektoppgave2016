@@ -59,12 +59,12 @@ public abstract class KortSamling {
      * @return tabell av kort. 
      */ 
     public Kort[] getSamling() { 
-        Kort[] kort = new Kort[forsteledig]; 
-        for(int i = 0; i < forsteledig; i++){ 
-            kort[i] = new Kort(samling[i].getFarge(), samling[i].getVerdi()); 
-        } 
+       // Kort[] kort = new Kort[forsteledig]; 
+       // for(int i = 0; i < forsteledig; i++){ 
+       //     kort[i] = samling[i];//new Kort(samling[i].getFarge(), samling[i].getVerdi()); 
+        //} 
          
-        return kort; 
+        return samling; 
          
         // TODO 
         //throw new RuntimeException("Metode getSamling ikke implementert"); 
@@ -78,8 +78,7 @@ public abstract class KortSamling {
     public int getAntalKort() { 
          
         // TODO 
-        return forsteledig; 
-         
+        return forsteledig;
         //throw new RuntimeException("Metode getAntalKort ikke implementert"); 
     } 
  
@@ -89,9 +88,9 @@ public abstract class KortSamling {
      */ 
     public void leggTilAlle() { 
         // Hint: Kortfarge.values() gir en tabell med alle kortfarger     
-         
+        if (forsteledig < 1) return;
         // TODO 
-        int k = MAKS_KORTSTOKK - forsteledig; 
+        int k = 0; 
         for(int j = 0; j < MAKS_KORT_FARGE+1; j++){ 
             for(int i = 0; i < MAKS_KORT+1; i++){ 
                 Kortfarge f = Kortfarge.values()[j]; 
@@ -139,8 +138,8 @@ public abstract class KortSamling {
     public Kort seSiste() { 
         if (forsteledig > 0){ 
             //Kort kort = new Kort(samling[forsteledig-1].getFarge(), samling[forsteledig-1].getVerdi()); 
-            Kort kort = samling[forsteledig-1]; 
-            return kort; 
+           // Kort kort = samling[forsteledig-1]; 
+            return samling[forsteledig-1]; 
  
         } 
         else return null; 
@@ -180,7 +179,7 @@ public abstract class KortSamling {
      */ 
     public boolean har(Kort kort) { 
          
-        if (forsteledig < 1) return false; 
+        if (forsteledig < 1) return false;
         if (kort == null) return false;
         // TODO 
         for(int i = 0; i < forsteledig; i++){ 
@@ -220,7 +219,7 @@ public abstract class KortSamling {
         ArrayList<Kort> list = toArrayList();	//Lag ny liste med elementer fra samling
         list.remove(index);	//Fjern element i rett index
         
-        //fjernAlle(); //Fjern alt innhold i samling
+       // fjernAlle(); //Fjern alt innhold i samling
         forsteledig--;
         for(int i = 0; i < forsteledig; i++){  //Legg til nytt innhold i samling
         	samling[i] = list.get(i);
