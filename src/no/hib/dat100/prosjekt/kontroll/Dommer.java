@@ -42,7 +42,7 @@ public class Dommer {
 		LOGGER.info("Nord har " + nordHand.toString() + " ved start.");
 		LOGGER.info("Syd har " + sydHand.toString() + " ved start.");
 
-		korrekt = (nordHand.size() == Regler.antallKortVedStart()) && (nordHand.size() == Regler.antallKortVedStart());
+		korrekt = (sydHand.size() == Regler.antallKortVedStart()) && (nordHand.size() == Regler.antallKortVedStart());
 
 		if (!korrekt) {
 			LOGGER.warning(": kort ikke korrekt delt ut");

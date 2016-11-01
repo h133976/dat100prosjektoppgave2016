@@ -96,8 +96,8 @@ public abstract class KortSamling {
         }
         // TODO 
         int k = 0;  
-        for(int j = 0; j < MAKS_KORT_FARGE; j++){ 
-            for(int i = 0; i < Kortfarge.values().length; i++){ 
+        for(int j = 0; j < Kortfarge.values().length; j++){ 
+            for(int i = 1; i < MAKS_KORT_FARGE+1; i++){ 
                 Kortfarge f = Kortfarge.values()[j]; 
                 samling[k] = new Kort(f, i); 
                 //samling[k].setFarge(f); 

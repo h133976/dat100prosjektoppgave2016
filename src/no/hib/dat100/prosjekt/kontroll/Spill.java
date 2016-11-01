@@ -344,16 +344,14 @@ public class Spill {
 		// om noen andre private metoder i klassen kan brukes
 		// til å implementere denne metoden
 		
-		int type = handling.getType().ordinal();
-		
-		switch (type){
-			case 0:	//TREKK
+		switch (handling.getType()){
+			case TREKK:	//TREKK
 				trekkFraBunke(spiller);
 			break;
-			case 1:	//FORBI
+			case FORBI:	//FORBI
 				forbiSpiller(spiller);
 			break;
-			case 2: //LEGGNED
+			case LEGGNED: //LEGGNED
 				leggnedKort(spiller, kort);
 			break;
 		}
