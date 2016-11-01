@@ -36,7 +36,18 @@ public class FirstFitSpiller extends Spiller {
 
 		// kort som spilleren har (FirstFitSpiller arver fra Spiller)
 		ArrayList<Kort> h = getHand().toArrayList();
+		
+		// lister til å samle opp lovlige kort og åttere for spilleren
+		
+		ArrayList<Kort> lovlige = new ArrayList<Kort>();
 
+		// itererer over handen h og legg til lovlige kort i åttere eller lovlige
+		for (Kort k : h) {
+			if (Regler.kanLeggeNed(k, topp)) {
+				lovlige.add(k);
+			}
+		}
+		
 		// kort som kan spilles
 		Kort kort = null;
 		
@@ -46,14 +57,26 @@ public class FirstFitSpiller extends Spiller {
 		// Hint: klassen Regler har en metode som gitt en kort sjekker om det kan legges ned
 		
 		// TODO
-		
-		// Hint: konstruer et handlingsobjekt som beskiver hva spilleren vil gj�re
-		// se klassen RandomSpiller som implementerer en Random spiller
-		
 		Handling handling = null;
 		
-		// TODO
-		throw new RuntimeException("Metode nesteHandling ikke implementert");
-		//return handling;
+		if (!lovlige.isEmpty()) {
+			
+			kort = lovlige.get(0);	//Hent første lovlige kort
+			handling = new Handling(HandlingsType.LEGGNED, kort);
+			setAntallTrekk(0); //Nullstill antall trekk
+		} else if (getAntallTrekk() < Regler.maksTrekk()) {
+			// trekk fra bunken hvis vi ikker nådd grensen for å trekke
+			handling = new Handling(HandlingsType.TREKK, null);
+		} else {
+			
+			// ikke noe kort spiller og kan ikke trekk mer
+			// da må vi si forbi og nullstille antall trekk.
+			
+			handling = new Handling(HandlingsType.FORBI, null);
+			setAntallTrekk(0);
+		}
+		
+		//throw new RuntimeException("Metode nesteHandling ikke implementert");
+		return handling;
 	}
 }

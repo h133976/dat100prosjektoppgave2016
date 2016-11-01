@@ -6,7 +6,7 @@ import no.hib.dat100.prosjekt.kontroll.Kontroll;
 
 public class TestKontroll {
 
-	private static final int TIMEOUT = 10000; // 10 sekunder
+	private static final int TIMEOUT = 2000; // 10 sekunder
 	
 	// test som i hovedsak cheker om der reises noen exceptions
 	@Test(timeout = TIMEOUT)
