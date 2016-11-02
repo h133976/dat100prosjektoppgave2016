@@ -248,7 +248,7 @@ public abstract class KortSamling {
  	   int index;
  	   Kort temp;
  	   Random random = new Random();
- 	   for (int i = forsteledig-1; i > 0; i--)
+ 	   for (int i = forsteledig-1; i >= 0; i--)
  	   {
  	       index = random.nextInt(i + 1);
  	       temp = samling[index];

@@ -81,16 +81,18 @@ public class Spill {
         // i tilegg til metoder på bunker
 		
 		// TODO
+		
 		nord = new RandomSpiller(Spillere.NORD);
 		syd = new FirstFitSpiller(Spillere.SYD);
 		
 		bunkeFra = new Bunke();
+		bunkeTil = new Bunke();
+		
 		bunkeFra.leggTilAlle();
 		bunkeFra.stokk();
 		
 		delutKort();
 		
-		bunkeTil = new Bunke();
 		
 		vendOverste();
 		
@@ -107,19 +109,24 @@ public class Spill {
 		
 		// TODO
 		
-		// Nord of syd trekker kort fra frabunken. Hver spiller trekker annenhver gang, med antall trekk lik Regler.makstrekk per tur.
-		while(syd.getAntallKort() < Regler.antallKortVedStart()){
-			int trekk = 0;
-			while (trekk < Regler.maksTrekk()){
-				nord.leggTilKort(bunkeFra.trekk());
-				trekk += Regler.maksTrekk();
-			}
-			trekk = 0;
-			while (trekk < Regler.maksTrekk()){
-				syd.leggTilKort(bunkeFra.trekk());
-				trekk += Regler.maksTrekk();
-			}
+		for (int i = 0; i < Regler.antallKortVedStart(); i++){
+			nord.leggTilKort(bunkeFra.trekk());
+			syd.leggTilKort(bunkeFra.trekk());
 		}
+		
+		// Nord of syd trekker kort fra frabunken. Hver spiller trekker annenhver gang, med antall trekk lik Regler.makstrekk per tur.
+//		while(syd.getAntallKort() < Regler.antallKortVedStart()){
+//			int trekk = 0;
+//			while (trekk < Regler.maksTrekk()){
+//				nord.leggTilKort(bunkeFra.trekk());
+//				trekk += Regler.maksTrekk();
+//			}
+//			trekk = 0;
+//			while (trekk < Regler.maksTrekk()){
+//				syd.leggTilKort(bunkeFra.trekk());
+//				trekk += Regler.maksTrekk();
+//			}
+//		}
 		
 		//throw new RuntimeException("Metode delutKort ikke implementert");
 	}
@@ -279,7 +286,7 @@ public class Spill {
 		
 		// TODO
 		// Hint: bruk nesteHandling metoden på en spiller
-		return (spiller.nesteHandling(bunkeTil.seSiste()));
+		return (spiller.nesteHandling(seOverste()));
 		//throw new RuntimeException("Metode nesteHandling ikke implementert");
 	}
 
@@ -301,9 +308,9 @@ public class Spill {
 		boolean harKort = false;
 		if (spiller.getHand().har(kort)) {
 			harKort = true;
+			bunkeTil.leggTil(kort);
 			spiller.fjernKort(kort);
 			spiller.setAntallTrekk(0);
-			bunkeTil.leggTil(kort);
 		}
 		return harKort;
 		//throw new RuntimeException("Metode leggnedKort ikke implementert");
@@ -375,7 +382,10 @@ public class Spill {
 		
 		boolean success = Regler.kanLeggeNed(kort, seOverste());
 		
-		if (success) syd.fjernKort(kort);
+		if (success) {
+			bunkeTil.leggTil(kort);
+			syd.fjernKort(kort);
+		}
 		
 		return success;
 		//throw new RuntimeException("Metode nedkortSyd ikke implementert");
