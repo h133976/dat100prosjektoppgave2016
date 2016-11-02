@@ -93,7 +93,6 @@ public class Spill {
 		
 		delutKort();
 		
-		
 		vendOverste();
 		
 		//throw new RuntimeException("Metode start ikke implementert");
@@ -159,6 +158,8 @@ public class Spill {
 		
 		while(bunkeTil.getAntalKort() > 0) bunkeFra.leggTil(bunkeTil.trekk());
 		
+		bunkeFra.stokk();
+		
 		bunkeTil.leggTil(tempKort);
 		
 		//throw new RuntimeException("Metode snuTilBunken ikke implementert");
@@ -196,7 +197,7 @@ public class Spill {
 	public boolean bunketilTom() {
 		
 		// TODO
-		return (bunkeTil.getAntalKort() == 0);
+		return (bunkeTil.erTom());
 		//throw new RuntimeException("Metode bunkeTilTom ikke implementert");
 	}
 
@@ -208,7 +209,7 @@ public class Spill {
 	public boolean bunkefraTom() {
 		
 		// TODO
-		return (bunkeFra.getAntalKort() == 0);
+		return (bunkeFra.erTom());
 		//throw new RuntimeException("Metode bunkefraTom ikke implementert");
 	}
 
