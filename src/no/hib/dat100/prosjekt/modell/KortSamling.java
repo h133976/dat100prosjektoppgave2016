@@ -89,23 +89,24 @@ public abstract class KortSamling {
     public void leggTilAlle() { 
         // Hint: Kortfarge.values() gir en tabell med alle kortfarger     
     	//Vil ha alle kort i sortert rekkefølge, tar derfor å fjerner evt. allerede eksisterende kort i kortsamling
-        if (forsteledig > 0) {	
-        	 for(int i = 0; i < forsteledig; i++){ 
-        		 samling[i] = null;
-        	 }
-        }
+       // if (forsteledig > 0) {	
+       // 	 for(int i = 0; i < forsteledig; i++){ 
+       // 		 samling[i] = null;
+       // 	 }
+       // }
         // TODO 
-        int k = 0;  
+    	forsteledig = 0;
+        //int k = 0;  
         for(int j = 0; j < Kortfarge.values().length; j++){ 
             for(int i = 1; i < MAKS_KORT_FARGE+1; i++){ 
                 Kortfarge f = Kortfarge.values()[j]; 
-                samling[k] = new Kort(f, i); 
+                samling[forsteledig] = new Kort(f, i); 
                 //samling[k].setFarge(f); 
                 //samling[k].setVerdi(i); 
-                k++; 
+                forsteledig++; 
             } 
         } 
-        forsteledig = k; 
+        //forsteledig = k; 
         //throw new RuntimeException("Metode leggTilAlle ikke implementert"); 
     } 
  
@@ -116,9 +117,9 @@ public abstract class KortSamling {
          
         // TODO 
         forsteledig = 0; 
-        for(int i = 0; i < forsteledig; i++){  
-            samling[i] = null;
-        } 
+        //for(int i = 0; i < forsteledig; i++){  
+         //   samling[i] = null;
+        //} 
         //throw new RuntimeException("Metode fjernAlle ikke implementert"); 
     } 
  
@@ -131,7 +132,7 @@ public abstract class KortSamling {
     public void leggTil(Kort kort) { 
          
         // TODO 
-        samling[forsteledig++] = new Kort(kort.getFarge(),kort.getVerdi()); 
+        samling[forsteledig++] = kort;//new Kort(kort.getFarge(),kort.getVerdi()); 
         //throw new RuntimeException("Metode leggTil ikke implementert"); 
     } 
  
@@ -165,7 +166,7 @@ public abstract class KortSamling {
             //Kort kort = new Kort(samling[forsteledig-1].getFarge(), samling[forsteledig-1].getVerdi()); 
         	int i = forsteledig - 1;
             Kort kort = samling[i]; 
-            samling[i] = null;
+            //samling[i] = null;
             forsteledig--; 
             return kort; 
  
@@ -196,7 +197,7 @@ public abstract class KortSamling {
         //throw new RuntimeException("Metode har ikke implementert"); 
     } 
     
-    public int harIndex(Kort kort) { 
+    private int harIndex(Kort kort) { 
         
         if (forsteledig < 1) return -1; 
         // TODO 
@@ -223,14 +224,17 @@ public abstract class KortSamling {
         int index = harIndex(kort); //sjekk om kortet eksisterer og evt returner index
         if (index == -1) return;
         
-        ArrayList<Kort> list = toArrayList();	//Lag ny liste med elementer fra samling
-        list.remove(index);	//Fjern element i rett index
+        samling[index] = samling[forsteledig-1];
+        forsteledig--;
+        
+        //ArrayList<Kort> list = toArrayList();	//Lag ny liste med elementer fra samling
+        //list.remove(index);	//Fjern element i rett index
         
        // fjernAlle(); //Fjern alt innhold i samling
-        forsteledig--;
-        for(int i = 0; i < forsteledig; i++){  //Legg til nytt innhold i samling
-        	samling[i] = list.get(i);
-        }
+        //forsteledig--;
+        //for(int i = 0; i < forsteledig; i++){  //Legg til nytt innhold i samling
+        //	samling[i] = list.get(i);
+        //}
         // Hint: fjern kortet - men husk kortet kan sitte p� en plass i midten 
          
         // TODO 
