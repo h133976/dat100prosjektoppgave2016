@@ -31,7 +31,8 @@ public class Spill {
 	public ISpiller getSyd() {
 		
 		// TODO
-		return syd;
+		return syd;	//Legg merke til at vi kan retunere syd bare hvis objektet syd og metoden getSyd har samme data type, altså ISpiller
+		
 		//throw new RuntimeException("Metode getSyd ikke implementert");
 	}
 
@@ -43,7 +44,8 @@ public class Spill {
 	public ISpiller getNord() {
 		
 		// TODO
-		return nord;
+		return nord;	//Se getSyd-kommentar
+		
 		//throw new RuntimeException("Metode getNord ikke implementert");
 	}
 
@@ -55,14 +57,15 @@ public class Spill {
 	public Bunke getBunkeTil() {
 		
 		// TODO
-		return bunkeTil;
+		return bunkeTil; //Se getSyd-kommentar
 		//throw new RuntimeException("Metode getBunkeTil ikke implementert");
 	}
 
 	public Bunke getBunkeFra() {
 		
 		// TODO
-		return bunkeFra;
+		return bunkeFra; //Se getSyd-kommentar
+		
 		//throw new RuntimeException("Metode getBunkeFra ikke implementert");
 	}
 
@@ -82,18 +85,20 @@ public class Spill {
 		
 		// TODO
 		
+		//TIPS: deklarer alle objekter først (obj = new Object) før en begynner med metodekalling og slikt
+		
 		nord = new RandomSpiller(Spillere.NORD);
 		syd = new FirstFitSpiller(Spillere.SYD);
 		
 		bunkeFra = new Bunke();
 		bunkeTil = new Bunke();
 		
-		bunkeFra.leggTilAlle();
-		bunkeFra.stokk();
+		bunkeFra.leggTilAlle();	//Legg til alle kort i bunken
+		bunkeFra.stokk();	//stokk om
 		
-		delutKort();
+		delutKort();	//Se metode
 		
-		vendOverste();
+		vendOverste();	//Se metode
 		
 		//throw new RuntimeException("Metode start ikke implementert");
 	}
@@ -108,24 +113,14 @@ public class Spill {
 		
 		// TODO
 		
+		//Bruker den statiske regler-klassen for å bestemme antall kort ved start.
+		//Legg merke til at statiske metoder ikke trenger å bli deklarert slikt som f.eks Kort-klassen
+		//en bare bruker den direkte (neat!)
+		
 		for (int i = 0; i < Regler.antallKortVedStart(); i++){
 			nord.leggTilKort(bunkeFra.trekk());
 			syd.leggTilKort(bunkeFra.trekk());
 		}
-		
-		// Nord of syd trekker kort fra frabunken. Hver spiller trekker annenhver gang, med antall trekk lik Regler.makstrekk per tur.
-//		while(syd.getAntallKort() < Regler.antallKortVedStart()){
-//			int trekk = 0;
-//			while (trekk < Regler.maksTrekk()){
-//				nord.leggTilKort(bunkeFra.trekk());
-//				trekk += Regler.maksTrekk();
-//			}
-//			trekk = 0;
-//			while (trekk < Regler.maksTrekk()){
-//				syd.leggTilKort(bunkeFra.trekk());
-//				trekk += Regler.maksTrekk();
-//			}
-//		}
 		
 		//throw new RuntimeException("Metode delutKort ikke implementert");
 	}
@@ -138,7 +133,8 @@ public class Spill {
 		
 		// TODO
 		
-		bunkeTil.leggTil(bunkeFra.trekk());
+		bunkeTil.leggTil(bunkeFra.trekk());	//Gjør som beskrevet over metoden
+		//Legg til kort i til-bunken det kortet som trekk-metoden i fra-bunken returnerer (metode-seption)
 		
 		//throw new RuntimeException("Metode vendOverste ikke implementert");
 	}
@@ -151,16 +147,16 @@ public class Spill {
 	 */
 	public void snuTilBunken() {
 
-		if (bunkeFra.getAntalKort() > 0) return;
+		if (bunkeFra.getAntalKort() > 0) return; //Vil kun snu bunken hvis fra-bunken er tom for kort
 		// TODO
 		
-		Kort tempKort = bunkeTil.trekk();
+		Kort tempKort = bunkeTil.trekk();	//Trekk ut og ta vare på øverste kort i til-bunken
 		
-		while(bunkeTil.getAntalKort() > 0) bunkeFra.leggTil(bunkeTil.trekk());
+		while(bunkeTil.getAntalKort() > 0) bunkeFra.leggTil(bunkeTil.trekk()); // trekk alle kort fra til-bunken og legg til i fra-bunken 
 		
-		bunkeFra.stokk();
+		bunkeFra.stokk();	//stokk om etter at alle kort er lagt til
 		
-		bunkeTil.leggTil(tempKort);
+		bunkeTil.leggTil(tempKort);	//Legg til kortet som ble tatt vare på i begynnelsen av metoden
 		
 		//throw new RuntimeException("Metode snuTilBunken ikke implementert");
 	}
@@ -179,12 +175,12 @@ public class Spill {
 
 		// TODO
 		
-		if (bunkeFra.getAntalKort() == 0) snuTilBunken();
+		if (bunkeFra.getAntalKort() == 0) snuTilBunken(); //Hvis fra-bunke er tom, snu tilbunken og legg til alle kortene i fra-bunken (se over)
 		
 		Kort kort = bunkeFra.trekk();
-		spiller.trekker(kort);
+		spiller.trekker(kort); //Viktig å kalle denne metoden når spilleren trekker et kort
 		
-		return kort;
+		return kort; 
 		
 		//throw new RuntimeException("Metode trekkFraBunke ikke implementert");
 	}
@@ -259,7 +255,7 @@ public class Spill {
 	public Kort seOverste() {
 		
 		// TODO
-		return (bunkeTil.seSiste());
+		return (bunkeTil.seSiste()); //Potato, potato
 		//throw new RuntimeException("Metode seOverste ikke implementert");
 	}
 
@@ -271,7 +267,7 @@ public class Spill {
 	public ArrayList<Kort> getSydHand() {
 		
 		// TODO
-		return (syd.getHand().toArrayList());
+		return (syd.getHand().toArrayList()); //Neat! returner handen og lag en liste
 		//throw new RuntimeException("Metode getSydHand ikke implementert");
 	}
 
@@ -310,7 +306,7 @@ public class Spill {
 		if (spiller.getHand().har(kort)) {
 			harKort = true;
 			bunkeTil.leggTil(kort);
-			spiller.fjernKort(kort);
+			spiller.fjernKort(kort);	//Viktig å legge til før en fjerner
 			spiller.setAntallTrekk(0);
 		}
 		return harKort;
@@ -379,16 +375,16 @@ public class Spill {
 	public boolean nedkortSyd(Kort kort) {
 		
 		// TODO
-		if (syd.getHand().har(kort) == false) return false;
+		if (syd.getHand().har(kort) == false) return false; //Sjekk om syd har kort på handen
 		
-		boolean success = Regler.kanLeggeNed(kort, seOverste());
+		boolean success = Regler.kanLeggeNed(kort, seOverste()); //sjekk om kortet kan legges ned iforhold til regler
 		
-		if (success) {
+		if (success) { //Hvis det kan legges ned, legg til i til-bunke og fjern fra hand
 			bunkeTil.leggTil(kort);
 			syd.fjernKort(kort);
 		}
 		
-		return success;
+		return success; //Returner hvordan det gikk!
 		//throw new RuntimeException("Metode nedkortSyd ikke implementert");
 	}
 

@@ -13,7 +13,7 @@ public class Bunke extends KortSamling {
 	 */
 
 	public Bunke() {
-		super();
+		super();	//Konstruktør lik den i kortsamling (med samme input parametre, altså ingen).
 	}
 
 	/**
@@ -24,14 +24,7 @@ public class Bunke extends KortSamling {
 	 */
 	public Kort trekk() {
 		// Hint: se p� metoder i superklassen
-		//Kort[] kort = getSamling();
-		//int index = getAntalKort() - 1;
-		
-		//fjern(kort[index]); //???
-		
-		// TODO
-		//return kort[index];
-		return taSiste();
+		return taSiste();	//Samme metode med annet navn.
 		//throw new RuntimeException("Metode trekk ikke implementert");
 	}
 
@@ -44,11 +37,8 @@ public class Bunke extends KortSamling {
 	 */
 	public Kort topp() {
 		
-		//Kort[] kort = getSamling();
-	//	int index = getAntalKort() - 1;
-		
 		// TODO
-		return seSiste();
+		return seSiste(); //Samme metode med annet navn.
 		//throw new RuntimeException("Metode topp ikke implementert");
 	}
 }

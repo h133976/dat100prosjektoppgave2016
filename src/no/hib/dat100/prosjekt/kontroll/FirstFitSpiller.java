@@ -37,11 +37,10 @@ public class FirstFitSpiller extends Spiller {
 		// kort som spilleren har (FirstFitSpiller arver fra Spiller)
 		ArrayList<Kort> h = getHand().toArrayList();
 		
-		// lister til å samle opp lovlige kort og åttere for spilleren
-		
+		// lister til å samle opp lovlige kort (samt åttere) for spilleren
 		ArrayList<Kort> lovlige = new ArrayList<Kort>();
 
-		// itererer over handen h og legg til lovlige kort i åttere eller lovlige
+		// itererer over handen h og legg til lovlige kort
 		for (Kort k : h) {
 			if (Regler.kanLeggeNed(k, topp)) {
 				lovlige.add(k);
@@ -61,8 +60,8 @@ public class FirstFitSpiller extends Spiller {
 		
 		if (!lovlige.isEmpty()) {
 			
-			kort = lovlige.get(0);	//Hent første lovlige kort
-			handling = new Handling(HandlingsType.LEGGNED, kort);
+			kort = lovlige.get(0);	//Hent første lovlige kort (first-fit)
+			handling = new Handling(HandlingsType.LEGGNED, kort); //lag ny handling av type LEGGNED med kort
 			setAntallTrekk(0); //Nullstill antall trekk
 		} else if (getAntallTrekk() < Regler.maksTrekk()) {
 			// trekk fra bunken hvis vi ikker nådd grensen for å trekke

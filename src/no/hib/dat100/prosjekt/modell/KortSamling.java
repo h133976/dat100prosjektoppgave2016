@@ -30,8 +30,8 @@ public abstract class KortSamling {
      */ 
     public KortSamling() { 
          
-        samling = new Kort[MAKS_KORT]; 
-        forsteledig = 0; 
+        samling = new Kort[MAKS_KORT]; //Ny tabell av kortobjekter (MAKS_KORT stort, med indeks fra 0 til MAKS_KORT-1)
+        forsteledig = 0; //første ledige kortplass er i plass 0
                             
         // TODO 
         //throw new RuntimeException("Metode KortSamling ikke implementert"); 
@@ -44,7 +44,7 @@ public abstract class KortSamling {
      */ 
     public boolean erTom() { 
          
-        return (forsteledig == 0); 
+        return (forsteledig == 0); // Hvis forste ledige plass er i posisjon 0, betyr det at vi ikke har kort i samlingen.
         // TODO 
         //throw new RuntimeException("Metode erTom ikke implementert"); 
     } 
@@ -59,12 +59,16 @@ public abstract class KortSamling {
      * @return tabell av kort. 
      */ 
     public Kort[] getSamling() { 
-       // Kort[] kort = new Kort[forsteledig]; 
-       // for(int i = 0; i < forsteledig; i++){ 
-       //     kort[i] = samling[i];//new Kort(samling[i].getFarge(), samling[i].getVerdi()); 
-        //} 
+       // Her kunne vi også bare returnert samling, 
+       // men selv om samling er MAKS_KORT element stor, har vi ikke nødvendigvis like mange kort som MAKS_KORT plasseringer.
+       // Derfor returnerer vi istedet en ny tabell med like mange plasseringer som det finns kort i samling.
+    	
+    	Kort[] kort = new Kort[forsteledig]; 
+        for(int i = 0; i < forsteledig; i++){ 
+            kort[i] = samling[i];//new Kort(samling[i].getFarge(), samling[i].getVerdi()); 
+        } 
          
-        return samling; 
+        return kort; 
          
         // TODO 
         //throw new RuntimeException("Metode getSamling ikke implementert"); 
@@ -78,7 +82,7 @@ public abstract class KortSamling {
     public int getAntalKort() { 
          
         // TODO 
-        return forsteledig;
+        return forsteledig; //forsteledig indikerer også antall kort vi har! Magical, or logical?! Jamfør "The Logical Song" av bandet "Supertramp"
         //throw new RuntimeException("Metode getAntalKort ikke implementert"); 
     } 
  
@@ -88,25 +92,19 @@ public abstract class KortSamling {
      */ 
     public void leggTilAlle() { 
         // Hint: Kortfarge.values() gir en tabell med alle kortfarger     
-    	//Vil ha alle kort i sortert rekkefølge, tar derfor å fjerner evt. allerede eksisterende kort i kortsamling
-       // if (forsteledig > 0) {	
-       // 	 for(int i = 0; i < forsteledig; i++){ 
-       // 		 samling[i] = null;
-       // 	 }
-       // }
         // TODO 
-    	forsteledig = 0;
-        //int k = 0;  
-        for(int j = 0; j < Kortfarge.values().length; j++){ 
-            for(int i = 1; i < MAKS_KORT_FARGE+1; i++){ 
-                Kortfarge f = Kortfarge.values()[j]; 
-                samling[forsteledig] = new Kort(f, i); 
-                //samling[k].setFarge(f); 
-                //samling[k].setVerdi(i); 
-                forsteledig++; 
+    	forsteledig = 0;	// Dette for å legge til kort fra starten av tabellen 
+    						// og evt. overskrive kort som er lagt til fra før av
+    	
+        for(int j = 0; j < Kortfarge.values().length; j++){ //fra 0 til 3 (4 farger)
+            for(int i = 1; i <= MAKS_KORT_FARGE; i++){	// Fra 1 (ess) til og med 13 (Kong??) (eller 3 i vårt tilfelle) 
+                Kortfarge f = Kortfarge.values()[j]; 	// Returnerer kortfargen med j som index (j = 0 -> hjerter; j = 1 -> Ruter)
+                //samling[forsteledig] = new Kort(f, i); 
+                samling[forsteledig].setFarge(f);	//Sett ny farge til kortet som finnes i tabellen med forsteledig-index
+                samling[forsteledig].setVerdi(i);	//Sett ny verdi til kortet som finnes i tabellen med forsteledig-index
+                forsteledig++; //Øk index og gjenta loop
             } 
         } 
-        //forsteledig = k; 
         //throw new RuntimeException("Metode leggTilAlle ikke implementert"); 
     } 
  
@@ -116,10 +114,7 @@ public abstract class KortSamling {
     public void fjernAlle() { 
          
         // TODO 
-        forsteledig = 0; 
-        //for(int i = 0; i < forsteledig; i++){  
-         //   samling[i] = null;
-        //} 
+        forsteledig = 0; //Setter bare index til 0, slik at når en legger til nye kort, vil de overskrive de gamle
         //throw new RuntimeException("Metode fjernAlle ikke implementert"); 
     } 
  
@@ -132,7 +127,7 @@ public abstract class KortSamling {
     public void leggTil(Kort kort) { 
          
         // TODO 
-        samling[forsteledig++] = kort;//new Kort(kort.getFarge(),kort.getVerdi()); 
+        samling[forsteledig++] = kort; //Sett element i tabell lik kort og øk forsteledig indeksen.
         //throw new RuntimeException("Metode leggTil ikke implementert"); 
     } 
  
@@ -142,13 +137,10 @@ public abstract class KortSamling {
      * @return siste kortet i samlinga, men det blir ikke fjernet. 
      */ 
     public Kort seSiste() { 
-        if (forsteledig > 0){ 
-            //Kort kort = new Kort(samling[forsteledig-1].getFarge(), samling[forsteledig-1].getVerdi()); 
-           // Kort kort = samling[forsteledig-1]; 
-            return samling[forsteledig-1]; 
- 
+        if (forsteledig > 0){  
+            return samling[forsteledig-1]; //forsteledig-1 er siste kort lagt til. forsteledig angir hvor neste kort plasseres
         } 
-        else return null; 
+        else return null; //Ingen kort i samlingen hvis forsteledig == 0;
         // TODO 
         //throw new RuntimeException("Metode seSiste ikke implementert"); 
     } 
@@ -164,14 +156,12 @@ public abstract class KortSamling {
         // TODO 
         if (forsteledig > 0){ 
             //Kort kort = new Kort(samling[forsteledig-1].getFarge(), samling[forsteledig-1].getVerdi()); 
-        	int i = forsteledig - 1;
-            Kort kort = samling[i]; 
-            //samling[i] = null;
-            forsteledig--; 
-            return kort; 
+            Kort kort = samling[forsteledig - 1]; 
+            forsteledig--; //Vi fjerner øverste kort ved å dekrementere indeksen
+            return kort; //Returnér først etter at vi har dekrementert indeksen 
  
         } 
-        else return null; 
+        else return null; //Ingen kort i samlingen hvis forsteledig == 0;
          
         //throw new RuntimeException("Metode taSiste ikke implementert"); 
     } 
@@ -185,21 +175,21 @@ public abstract class KortSamling {
      */ 
     public boolean har(Kort kort) { 
          
-        if (forsteledig < 1) return false;
-        else if (kort == null) return false;
+        if (forsteledig < 1) return false; //Ingen kort i samling
+        else if (kort == null) return false; //input kort er ikke definert (= null)
         else{
 	        // TODO 
-	        for(int i = 0; i < forsteledig; i++){ 
-	            if (samling[i].compareTo(kort) == 0) return true; 
+	        for(int i = 0; i < forsteledig; i++){ //Sammenlign alle kort fra indeks 0 til (og ikke med) forsteledig 
+	            if (samling[i].compareTo(kort) == 0) return true; //Hvis vi finner en match, trenger vi ikke gå gjennom resten. Derfor returnerer vi
 	        } 
-	        return false; 
+	        return false; //Ingen match, har gått gjennom alle kort
         }
         //throw new RuntimeException("Metode har ikke implementert"); 
     } 
     
-    private int harIndex(Kort kort) { 
+    private int harIndex(Kort kort) { //Denne baseres på den over, bare at den returnerer en integer (indeksen til det matchede kortet)
         
-        if (forsteledig < 1) return -1; 
+        if (forsteledig < 1) return -1; //JEG har bestemt at metoden skal returnere -1 om den ikke finner noen match.
         // TODO 
         for(int i = 0; i < forsteledig; i++){ 
             if (samling[i].compareTo(kort) == 0) return i; 
@@ -222,19 +212,24 @@ public abstract class KortSamling {
         if (forsteledig < 1) return; //Sjekk om det finnes kort i samlingen
         
         int index = harIndex(kort); //sjekk om kortet eksisterer og evt returner index
-        if (index == -1) return;
+        if (index == -1) return; //-1 er kode for "fant ingen match"
         
-        samling[index] = samling[forsteledig-1];
-        forsteledig--;
+        samling[index] = samling[forsteledig-1]; //Setter siste kort i samlinga til index (kortet som skal fjernes).
+        forsteledig--; //På denne måten overskriver vi det kortet som skal vekk med siste kort i samlinga,
+        //slik at vi samtidig kan dekrementere samlinga (altså ett kort mindre i samling, som skjer når en fjerner et kort (duh?)).
+        
+        //Det som er kommentert vekk under, e min såkalte "fancy" måte å fjerne et kort på. 
+        //Dette kan ignoreres, men jeg velger å la det stå for å demonstrere mitt fantastiske intellektuellialitet (hæ?!)
         
         //ArrayList<Kort> list = toArrayList();	//Lag ny liste med elementer fra samling
         //list.remove(index);	//Fjern element i rett index
         
-       // fjernAlle(); //Fjern alt innhold i samling
+        //fjernAlle(); //Fjern alt innhold i samling
         //forsteledig--;
         //for(int i = 0; i < forsteledig; i++){  //Legg til nytt innhold i samling
         //	samling[i] = list.get(i);
         //}
+        
         // Hint: fjern kortet - men husk kortet kan sitte p� en plass i midten 
          
         // TODO 
@@ -270,8 +265,8 @@ public abstract class KortSamling {
      *         som i kortsamlinga. 
      */ 
     public ArrayList<Kort> toArrayList() { 
-        ArrayList<Kort> list = new ArrayList<Kort>(); 
-        for (int i = 0; i < forsteledig; i++){
+        ArrayList<Kort> list = new ArrayList<Kort>(); //Lag ny liste
+        for (int i = 0; i < forsteledig; i++){ //Legg til alle element fra samling i listen
         	list.add(i,samling[i]);
         }
         // Hint: legg hvert kort fra samling over i arraylisten list 

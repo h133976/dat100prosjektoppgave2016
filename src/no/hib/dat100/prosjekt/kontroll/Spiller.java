@@ -31,9 +31,9 @@ public abstract class Spiller implements ISpiller {
 	public Spiller() {
 
 		// TODO
-		hand = new Hand();
-		antalltrekk = 0;
-		spiller = Spillere.INGEN;
+		hand = new Hand();	//deklarer handen
+		antalltrekk = 0;	//begynner med 0 trekk
+		spiller = Spillere.INGEN; //Hvis ikke spiller er gitt som input, sett til INGEN
 		
 		//throw new RuntimeException("Metode Spiller ikke implementert");
 	}
@@ -58,7 +58,7 @@ public abstract class Spiller implements ISpiller {
 	public int getAntallKort() {
 		
 		// TODO
-		return hand.getAntalKort();
+		return hand.getAntalKort(); //Se hand-klasse
 		//throw new RuntimeException("Metode getAntallKort ikke implementert");
 	}
 
@@ -95,7 +95,7 @@ public abstract class Spiller implements ISpiller {
 	public boolean erFerdig() {
 		
 		// TODO
-		return (hand.getAntalKort() == 0);
+		return (hand.getAntalKort() == 0); //Se regler
 		//throw new RuntimeException("Metode erFerdig ikke implementert");
 	}
 
@@ -128,7 +128,7 @@ public abstract class Spiller implements ISpiller {
 		
 		// TODO
 		hand.leggTil(kort);
-		antalltrekk++;
+		antalltrekk++;	//Om en trekker, økes antall trekk med én
 		//throw new RuntimeException("Metode trekker ikke implementert");
 	}
 }
